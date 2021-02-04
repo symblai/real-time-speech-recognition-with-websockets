@@ -1,4 +1,4 @@
-Symbl for Zoom in Terminal w/o UI
+Enable Symbl for real-time speech recognition.
 ============================
 
 [![Streaming API](https://img.shields.io/badge/symbl-streaming-brightgreen)](https://docs.symbl.ai/docs/streamingapi/guides/get-realtime-transcription)
