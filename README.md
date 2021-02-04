@@ -1,6 +1,6 @@
-# real-time-speech-recognition-with-websockets
+# Real-time Speech Recognition with WebSockets
 
-###Use Symbl.ai's Streaming API to create real-time speech recognition with native Javascript WebSockets
+### Use Symbl.ai's Streaming API to create real-time speech recognition with native Javascript WebSockets
 
 ============================
 
