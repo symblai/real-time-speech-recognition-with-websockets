@@ -1,9 +1,8 @@
 /**
  * The JWT token you get after authenticating with our API.
  * Check the Authentication section of the documentation for more details.
- * https://docs.symbl.ai/docs/authentication
  */
-const accessToken = await getAccessToken();
+const accessToken = accessToken
 const uniqueMeetingId = btoa(emailAddress)
 const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
 
@@ -11,7 +10,10 @@ const ws = new WebSocket(symblEndpoint);
 
 // Fired when a message is received from the WebSocket server
 ws.onmessage = (event) => {
-  console.log(event);
+  // You can find the conversationId in event.message.data.conversationId;
+  const data = JSON.parse(event.data);
+  console.log('conversationId', data.message.data.conversationId);
+  console.log('onmessage event', event);
 };
 
 // Fired when the WebSocket closes unexpectedly due to an error or lost connetion
