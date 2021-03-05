@@ -2,8 +2,8 @@
  * The JWT token you get after authenticating with our API.
  * Check the Authentication section of the documentation for more details.
  */
-const accessToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlFVUTRNemhDUVVWQk1rTkJNemszUTBNMlFVVTRRekkyUmpWQ056VTJRelUxUTBVeE5EZzFNUSJ9.eyJodHRwczovL3BsYXRmb3JtLnN5bWJsLmFpL3VzZXJJZCI6IjU2ODY3MDM2Mzk0OTQ2NTYiLCJpc3MiOiJodHRwczovL2RpcmVjdC1wbGF0Zm9ybS5hdXRoMC5jb20vIiwic3ViIjoiamt6dzZpck0xYUdUelhiczdqZ3d0RGV5R05QU0pMUU1AY2xpZW50cyIsImF1ZCI6Imh0dHBzOi8vcGxhdGZvcm0ucmFtbWVyLmFpIiwiaWF0IjoxNjE0MDM3NTkwLCJleHAiOjE2MTQxMjM5OTAsImF6cCI6Imprenc2aXJNMWFHVHpYYnM3amd3dERleUdOUFNKTFFNIiwiZ3R5IjoiY2xpZW50LWNyZWRlbnRpYWxzIn0.1ca8OaRQH5H2wOdbQVYMLm-rJj-uLAt1ISFc4jb07NQkfa8eLxU-LXsL68dMCCQsvDyoAX9r4WTxcMsl5Twa5ZzOqXIRgtJVIwFEKgEtlTnOUTp0L5vuISGnd6xtC2fUyOA-2fGojj07pQp8_zgWXL1at1uvREFz8eX0hOiW6gm-MdcnXiOQD_gk3w2RLxapI8mMC0lJnWRj7RrNMcCGQL6cCJf2oz5-jyzSqxV3IQmVC235e4yOK-lb8BHolNYGMJGvjbezmyII_T6RiR_KB6nYU3ICeBnPnjr9bdqDtycoWhvHR993vkfHkZB8OpO01fEf1P-tT48_mounjSEaXA"
-const uniqueMeetingId = btoa("adam.voliva@symbl.ai");
+const accessToken = "";
+const uniqueMeetingId = btoa("user@example.com");
 const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
 
 const ws = new WebSocket(symblEndpoint);
