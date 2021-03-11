@@ -15,7 +15,30 @@ ws.onmessage = (event) => {
   if (data.type === 'message' && data.message.hasOwnProperty('data')) {
     console.log('conversationId', data.message.data.conversationId);
   }
-  console.log('onmessage event', event);
+  if (data.type === 'message_response') {
+    for (let message of data.messages) {
+      console.log('Transcript (more accurate): ', message.payload.content);
+    }
+  }
+  if (data.type === 'topic_response') {
+    for (let topic of data.topics) {
+      console.log('Topic detected: ', topic.phrases)
+    }
+  }
+  if (data.type === 'topic_response') {
+    for (let topic of data.topics) {
+      console.log('Topic detected: ', topic.phrases)
+    }
+  }
+  if (data.type === 'insight_response') {
+    for (let insight of data.insights) {
+      console.log('Insight detected: ', insight.payload.content);
+    }
+  }
+  if (data.type === 'message' && data.message.hasOwnProperty('punctuated')) {
+    console.log('Live transcript (less accurate): ', data.message.punctuated.transcript)
+  }
+  console.log(`Response type: ${data.type}. Object: `, data);
 };
 
 // Fired when the WebSocket closes unexpectedly due to an error or lost connetion
