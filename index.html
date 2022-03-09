@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <title>AudioWorklet, SharedArrayBuffer and Worker | Symbl APIs</title>
+        <!-- Mobile Specific Metas 
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        <!-- FONT
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link
+            href="//fonts.googleapis.com/css?family=Raleway:400,300,600"
+            rel="stylesheet"
+            type="text/css"
+        />
+
+        <!-- CSS
+        –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+        <link rel="stylesheet" href="css/normalize.css" />
+        <link rel="stylesheet" href="css/skeleton.css" />
+
+        <script src="./audio/index.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            function renderCaptions(data) {
+                if (
+                    data.type === "message" &&
+                    data.message.hasOwnProperty("punctuated")
+                ) {
+                    console.log(
+                        "------Live transcript (less accurate): ",
+                        data.message.punctuated.transcript
+                    );
+
+                    document.getElementById("captions-text").innerHTML =
+                        data.message.punctuated.transcript;
+                }
+
+                if (
+                    data.type === "message" &&
+                    data.message.type === "recognition_started"
+                ) {
+                    document.getElementById("connect-btn").innerHTML = "Connected!";
+                    document.getElementById("captions-text").innerHTML =
+                        "You're now connected to Symbl Streaming API. The detected captions will appear here";
+                }
+            }
+
+            function connect(element) {
+                document.getElementById("connect-btn").disabled = true;
+                initializeAudioDevice(null, renderCaptions);
+                document.getElementById("connect-btn").innerHTML = "Connecting";
+            }
+        </script>
+    </head>
+    <body>
+        <div class="ccontainer">
+            <div class="row">
+            <button
+                onclick="connect(this)"
+                class="primary-button"
+                id="connect-btn"
+            >
+                Connect
+            </button>
+            </div>
+                <div class="row">
+            <p id="captions-text">
+                Click the 'Connect' button to start Live Captions which will be
+                shown here!
+            </p>
+                </div>
+        </div>
+    </body>
+</html>

@@ -19,7 +19,9 @@ Symbl's APIs empower developers to enable:
 
 # Your Integration Guide's Purpose 
 
-Enable Symbl for real-time speech recognition.
+Enable Symbl for real-time speech recognition with Audio accessed via the AudioWorklet and SharedAudioBuffer. These are mainly used to shift the responsibility of accessing and processing of audio from the main thread to a background worker. The sharing of the audio data from the processor is done via the SharedArrayBuffers which makes this process highly optimised.
+
+> **_NOTE:_** Due to security measures taken in the light of Specter, the SharedArrayBuffer can only be used in a secure context. This also requires serving your document with 2 additional headers and over HTTPS for SharedArrayBuffer to be available for use. Check these headers and their values in the `server/index.js` file. For more information on SharedArrayBuffers visit [this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer) link.
 
 <hr />
 
@@ -30,13 +32,21 @@ Enable Symbl for real-time speech recognition.
 
 ## Setup 
 
-Take this code and run it in your browser's development console or stick it in a `<script />` tag in an HTML document.
+To run the express server to serve this example, you should have `Node.js v12+` and `ngrok` installed on your system. Go to the `server` directory and run `npm i` to install all the required dependencies.
+
+The example requires a valid JWT Token to be set in the `accessToken` property in the `symbl/index.js` file. For more details on generating authentication token, please visit [here](https://docs.symbl.ai/docs/developer-tools/authentication)
+
+To start the server, run `node index.js` in the `server` directory. This will start an instance of express HTTP server on port `5000`.
+
+For running this example with SharedArrayBuffers, the next step is to access the example via HTTPS to ensure secure context for AudioWorklet and SharedArrayBuffer. Start an ngrok tunnel for port `5000` and use the HTTPS URI given by `ngrok` to access this example on browser. 
 
 ## Integration 
 
-The browser will ask for permission to use your device's microhpone.
+The browser will ask for permission to use your device's microhpone. For modifying the size of the audio frames being sent on the WebSocket connection, checkout the `kernelLength` property of `CONFIG` object in `audio/shared-buffer-worker.js` file.
 
-## Community 
+> **_NOTE:_** Since the WebSocket connection is being established in the context of a Worker, the UTF-8 messages/data received on the socket connection is being emitted through the `postMessage` function. The custom `AudioWorkletNode` implementation accepts `onConversationEvents` function for receiving these events in the main thread.
+
+## Community
 
 If you have any questions, feel free to reach out to us at devrelations@symbl.ai or through our [Community Slack][slack] or our [developer community][developer_community]. 
 
