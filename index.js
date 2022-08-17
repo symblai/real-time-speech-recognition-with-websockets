@@ -1,10 +1,13 @@
 /**
- * The JWT token you get after authenticating with our API.
- * Check the Authentication section of the documentation for more details.
- */
-const accessToken = "";
-const uniqueMeetingId = btoa("user@example.com");
-const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
+* The JWT token you get after authenticating with our API.
+* Check the Authentication section of the documentation for more details.
+*/
+const accessToken = ''
+const uniqueMeetingId = btoa('user@example.com')
+const symblEndpoint = `wss://api.symbl.ai/v1/streaming/${uniqueMeetingId}?access_token=${accessToken}`;
+
+// Have audio context instance created for getting sample rate and audio processing handler.
+const context = new AudioContext();
 
 const ws = new WebSocket(symblEndpoint);
 
@@ -18,11 +21,6 @@ ws.onmessage = (event) => {
   if (data.type === 'message_response') {
     for (let message of data.messages) {
       console.log('Transcript (more accurate): ', message.payload.content);
-    }
-  }
-  if (data.type === 'topic_response') {
-    for (let topic of data.topics) {
-      console.log('Topic detected: ', topic.phrases)
     }
   }
   if (data.type === 'topic_response') {
@@ -62,12 +60,12 @@ ws.onopen = (event) => {
       languageCode: 'en-US',
       speechRecognition: {
         encoding: 'LINEAR16',
-        sampleRateHertz: 44100,
+        sampleRateHertz: context.sampleRate, // Get sample rate from browser's audio context
       }
     },
     speaker: {
-      userId: 'example@symbl.ai',
-      name: 'Example Sample',
+      userId: 'tony@starkindustries.com',
+      name: 'Tony Stark',
     }
   }));
 };
@@ -80,8 +78,6 @@ const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: f
  * the WebSocket endpoint for processing.
  */
 const handleSuccess = (stream) => {
-  const AudioContext = window.AudioContext;
-  const context = new AudioContext();
   const source = context.createMediaStreamSource(stream);
   const processor = context.createScriptProcessor(1024, 1, 1);
   const gainNode = context.createGain();
@@ -101,6 +97,5 @@ const handleSuccess = (stream) => {
     }
   };
 };
-
 
 handleSuccess(stream);
