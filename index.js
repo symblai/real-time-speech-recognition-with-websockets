@@ -54,21 +54,36 @@ ws.onclose = (event) => {
 // Fired when the connection succeeds.
 ws.onopen = (event) => {
   ws.send(JSON.stringify({
-    type: 'start_request',
-    meetingTitle: 'Websockets How-to', // Conversation name
-    insightTypes: ['question', 'action_item'], // Will enable insight generation
-    config: {
-      confidenceThreshold: 0.5,
-      languageCode: 'en-US',
-      speechRecognition: {
-        encoding: 'LINEAR16',
-        sampleRateHertz: 44100,
+// Fired when the connection succeeds.
+ws.onopen = (event) => {
+  ws.send(JSON.stringify({
+    "type":"start_request",
+      "meetingTitle":"Websockets How-to", // Conversation name
+      "insightTypes":["question","action_item"],  // Enable insights
+      "trackers":[
+          {
+              "name":"content",
+              "vocabulary": [
+                  "finding talent",
+                  "life",
+                  "purpose",
+                  "how we will"
+              ]
+          }
+      ],
+      "config":{
+          "sentiment": true,
+          "confidenceThreshold":0.5,
+          "languageCode":"en-US",
+          "speechRecognition":{
+              "encoding":"LINEAR16",
+              "sampleRateHertz":44100
+          }
+      },
+      "speaker":{
+          "userId":"example@symbl.ai",
+          "name":"Example Sample"
       }
-    },
-    speaker: {
-      userId: 'example@symbl.ai',
-      name: 'Example Sample',
-    }
   }));
 };
 
