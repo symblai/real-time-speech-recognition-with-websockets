@@ -1,12 +1,11 @@
-/**
- * The JWT token you get after authenticating with our API.
- * Check the Authentication section of the documentation for more details.
- */
-const accessToken = "";
-const uniqueMeetingId = btoa("user@example.com");
-const symblEndpoint = `wss://api.symbl.ai/v1/realtime/insights/${uniqueMeetingId}?access_token=${accessToken}`;
-
+const accessToken = accessToken;
+// Refer to the Authentication section for how to generate the accessToken: https://docs.symbl.ai/docs/authenticate
+const uuid = require('uuid').v4;
+const connectionId = uuid();
+const symblEndpoint = `wss://api.symbl.ai/v1/streaming/${connectionId}?access_token=${accessToken}`;
 const ws = new WebSocket(symblEndpoint);
+
+// Have audio context instance created for getting sample rate and audio processing handler.
 
 // Fired when a message is received from the WebSocket server
 ws.onmessage = (event) => {
