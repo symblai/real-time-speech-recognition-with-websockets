@@ -6,7 +6,6 @@ const symblEndpoint = `wss://api.symbl.ai/v1/streaming/${connectionId}?access_to
 const ws = new WebSocket(symblEndpoint);
 
 // Have audio context instance created for getting sample rate and audio processing handler.
-const context = new AudioContext();
 
 // Fired when a message is received from the WebSocket server
 ws.onmessage = (event) => {
